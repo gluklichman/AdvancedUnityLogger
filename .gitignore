@@ -1,0 +1,12 @@
+/Temp
+/Library
+/_ReSharper.pjsoft_ccb-csharp
+/*.csproj
+/*.sln
+/*.unityproj
+/obj
+/*.suo
+/*.pidb
+
+/pjsoft_ccb.userprefs
+/pjsoft_ccb-csharp.sln.DotSettings.user
