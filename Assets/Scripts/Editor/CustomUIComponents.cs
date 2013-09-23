@@ -6,20 +6,22 @@ using UnityEditor;
 
 public class CustomUIComponents
 {
-	private static Vector2 scrollPosition;
-	private static bool buttonPressed = false;
-	private const int listItemHeight = 15;
-	private static Rect lastRect;
-	private static int lastIndex = -1;
+	private static Vector2 _objectsListScrollPosition;
+	private static Vector2 _detailedViewScrollPosition;
 	
-	private static Texture2D highlightTexture;
-	private static GUIStyle pressed;
+	private static bool _buttonPressed = false;
+	private const int _listItemHeight = 15;
+	private static Rect _lastRect;
+	private static int _lastIndex = -1;
+	
+	private static Texture2D _highlightTexture;
+	private static GUIStyle _pressed;
 	
 	static CustomUIComponents()
 	{
-		highlightTexture = Resources.Load("highlight") as Texture2D;
-		pressed = new GUIStyle(GUI.skin.box);
-		pressed.normal.background = highlightTexture;
+		_highlightTexture = Resources.Load("highlight") as Texture2D;
+		_pressed = new GUIStyle(GUI.skin.box);
+		_pressed.normal.background = _highlightTexture;
 	}
 	
 	private static bool SelectableListItem(int id, string label, Rect rect)
@@ -34,7 +36,7 @@ public class CustomUIComponents
             {
 	            GUIUtility.hotControl = controlId;
                 Event.current.Use();
-                buttonPressed = true;
+                _buttonPressed = true;
             }
             break;
         case EventType.MouseUp:
@@ -42,7 +44,7 @@ public class CustomUIComponents
             {
                 GUIUtility.hotControl = 0;
                 Event.current.Use();
-                buttonPressed = false;
+                _buttonPressed = false;
                 if (rect.Contains(Event.current.mousePosition)) return true;
             }
             return false;
@@ -58,35 +60,43 @@ public class CustomUIComponents
 		bool [] results = new bool[content.Count];
 		float y = rect.y;
 		int id = -1;
-		scrollPosition = GUI.BeginScrollView(new Rect(rect.x, rect.y, rect.width+20, parent.height*0.8f)
-			, scrollPosition, rect);
+		_objectsListScrollPosition = GUI.BeginScrollView(new Rect(rect.x, rect.y, rect.width+20, parent.height*0.6f)
+			, _objectsListScrollPosition, rect);
 		
 		for (int i=0; i<content.Count; i++)
 		{
-			results[i] = SelectableListItem(i, content[i], new Rect(rect.x, y, rect.width, listItemHeight));
-			y += listItemHeight;
+			results[i] = SelectableListItem(i, content[i], new Rect(rect.x, y, rect.width, _listItemHeight));
+			y += _listItemHeight;
 		}
 		
 		int index = ArrayUtility.FindIndex(results, (res)=>res==true);
 		if (index >= 0)
 		{
-			GUI.Box(new Rect(rect.x, rect.y+index*listItemHeight, rect.width, listItemHeight), "", pressed);
-			SelectableListItem(index, content[index], new Rect(rect.x, rect.y+index*listItemHeight, rect.width, listItemHeight));
-			lastRect = new Rect(rect.x, rect.y+index*listItemHeight, rect.width, listItemHeight);
-			lastIndex = index;
+			GUI.Box(new Rect(rect.x, rect.y+index*_listItemHeight, rect.width, _listItemHeight), "", _pressed);
+			SelectableListItem(index, content[index], new Rect(rect.x, rect.y+index*_listItemHeight, rect.width, _listItemHeight));
+			_lastRect = new Rect(rect.x, rect.y+index*_listItemHeight, rect.width, _listItemHeight);
+			_lastIndex = index;
 		}
 		else 
 		{
-			if (lastRect != null && lastIndex != -1)
+			if (_lastRect != null && _lastIndex != -1)
 			{
-				GUI.Box(lastRect, "", pressed);
-				SelectableListItem(lastIndex, content[lastIndex], lastRect);
+				GUI.Box(_lastRect, "", _pressed);
+				SelectableListItem(_lastIndex, content[_lastIndex], _lastRect);
 			}
 		}
 			
 		GUI.EndScrollView();
 
 		return ArrayUtility.FindIndex(results, (res)=>res==true);
+	}
+	
+	public static void DetailedDescriptionArea(Rect rect, Rect parent, string description)
+	{
+		_detailedViewScrollPosition = GUI.BeginScrollView(new Rect(rect.x, rect.y, rect.width+20, parent.height*0.4f),
+			_detailedViewScrollPosition, rect);
+		GUI.TextArea(rect, description);
+		GUI.EndScrollView();
 	}
 }
 
