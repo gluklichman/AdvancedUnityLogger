@@ -23,12 +23,12 @@ public class MessageList
 	
 	static MessageList()
 	{
-		_highlightTexture = Resources.Load("highlight") as Texture2D;
+		_highlightTexture = Resources.Load("message_highlight") as Texture2D;
 		_chooseStyle = new GUIStyle(GUI.skin.box);
 		_chooseStyle.normal.background = _highlightTexture;
 		
 		_secondMessageBack = Resources.Load("message_back") as Texture2D;
-		_secondMessageStyle = new GUIStyle(GUI.skin.box);
+		_secondMessageStyle = new GUIStyle(GUI.skin.label);
 		_secondMessageStyle.normal.background = _secondMessageBack;
 		_secondMessageStyle.alignment = TextAnchor.UpperLeft;
 	}
