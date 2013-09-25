@@ -20,10 +20,8 @@ public class AdvancedLogWindow : EditorWindow {
 	void OnGUI()
 	{
 		int id = CustomUIComponents.CheckList(new Rect(0,0,100,_items.Count*_listItemHeight), _items, position);
-		if (id >= 0)
-			Debug.Log(id);
 		CustomUIComponents.DetailedDescriptionArea(new Rect(0, position.height*0.6f, position.width, 300), position, _description);
-		
+		MessageList.CreateMessageList(new Rect(130, 0, position.width-150, _items.Count*_listItemHeight), _items, position);
 	}
 	
 	public static void AddListener(string listener)
