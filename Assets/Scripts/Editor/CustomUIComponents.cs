@@ -60,7 +60,7 @@ public class CustomUIComponents
 		bool [] results = new bool[content.Count];
 		float y = rect.y;
 		int id = -1;
-		_objectsListScrollPosition = GUI.BeginScrollView(new Rect(rect.x, rect.y, rect.width+20, parent.height*0.6f)
+		_objectsListScrollPosition = GUI.BeginScrollView(new Rect(rect.x, rect.y, rect.width+20, parent.height*0.6f+10)
 			, _objectsListScrollPosition, rect);
 		
 		for (int i=0; i<content.Count; i++)
