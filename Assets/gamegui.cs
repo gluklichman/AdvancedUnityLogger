@@ -19,8 +19,14 @@ public class gamegui : MonoBehaviour {
 	{
 		if (GUI.Button(new Rect(0,0, 100, 50), "push"))
 		{
-			counter++;
-			Debug.Log("Counter: "+counter);
+			Debug.Log("GUI!");
+			LogTestMessage();
 		}
+	}
+	
+	void LogTestMessage()
+	{
+		counter++;
+		Debug.Log("Counter: "+counter);
 	}
 }

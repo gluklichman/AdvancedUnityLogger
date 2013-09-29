@@ -115,6 +115,11 @@ public class MessageList
 		return ArrayUtility.FindIndex(results, (res)=>res==true);
 	}
 	
+	public static void Destroy()
+	{
+		_lastIndex = -1;
+	}
+	
 	
 }
 
