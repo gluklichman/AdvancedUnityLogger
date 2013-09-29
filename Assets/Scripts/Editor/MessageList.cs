@@ -89,7 +89,7 @@ public class MessageList
 		}
 		
 		int index = ArrayUtility.FindIndex(results, (res)=>res==true);
-		if (index >= 0)
+		if (index >= 0 && content.Count > 0)
 		{
 			GUI.Box(new Rect(rect.x, rect.y+index*_messageHeight, rect.width, _messageHeight), "", _chooseStyle);
 			MessageListItem(index, content[index], new Rect(rect.x, rect.y+index*_messageHeight, rect.width, _messageHeight));
@@ -98,6 +98,11 @@ public class MessageList
 		}
 		else 
 		{
+			if (content.Count == 0)
+			{
+				GUI.EndScrollView();
+				return -1;
+			}
 			if (_lastRect != null && _lastIndex != -1)
 			{
 				GUI.Box(_lastRect, "", _chooseStyle);

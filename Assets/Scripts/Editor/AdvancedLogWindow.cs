@@ -13,22 +13,42 @@ public class AdvancedLogWindow : EditorWindow {
 	
 	private bool _collapse = false;
 	
+	private static List<string> _logMessages = new List<string>();
+	
 	[MenuItem("Window/AdvancedLog")]
 	public static void ShowWindow()
 	{
 		EditorWindow.GetWindow(typeof(AdvancedLogWindow));
+		Debug.Log("start");
 	}
+	
+	
 	
 	void OnGUI()
 	{
 		int id = CustomUIComponents.CheckList(new Rect(0,0,100,_items.Count*_listItemHeight), _items, position);
-		CustomUIComponents.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300), position, _description);
-		MessageList.CreateMessageList(new Rect(130, 20, position.width-150, _items.Count*_messageHeight), _items, position);
-		_collapse = GUI.Toggle(new Rect(130,0,100,20), _collapse, "Collapse");
 		if (GUI.Button(new Rect(230,0,80,17), "Clear"))
 		{
 		}
 		GUI.Box(new Rect(130, 0, position.width - 150, 20), "");
-		
+		CustomUIComponents.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300), position, _description);
+		MessageList.CreateMessageList(new Rect(130, 20, position.width-150, _items.Count*_messageHeight), _logMessages, position);
+		_collapse = GUI.Toggle(new Rect(130,0,100,20), _collapse, "Collapse");
+	}
+	
+	private void LogCallback(string logText, string stackTrace, LogType type)
+	{
+		_logMessages.Add(logText);
+		Repaint();
+	}
+	
+	void OnDestroy()
+	{
+		Application.RegisterLogCallback(null);
+	}
+	
+	void OnEnable()
+	{
+		Application.RegisterLogCallback(LogCallback);
 	}
 }
