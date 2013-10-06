@@ -45,6 +45,8 @@ public class AdvancedLogWindow : EditorWindow {
 	{
 		if (GUI.Button(new Rect(230,0,80,17), "Clear"))
 		{
+			ClearLists();
+			MessageList._lastIndex = -1;
 		}
 		GUI.Box(new Rect(130, 0, position.width - 150, 20), "");
 		_collapse = GUI.Toggle(new Rect(130,0,100,20), _collapse, "Collapse");

@@ -15,7 +15,7 @@ public class MessageList
 	private static Vector2 _messageListScrollPosition;
 	
 	private static Rect _lastRect;
-	private static int _lastIndex;
+	public static int _lastIndex;
 	
 	private static Texture2D _secondMessageBack;
 	private static GUIStyle _secondMessageStyle;
@@ -102,7 +102,7 @@ public class MessageList
 				GUI.EndScrollView();
 				return -1;
 			}
-			if (_lastRect != null && _lastIndex != -1)
+			if (_lastRect != null && _lastIndex != -1 && _lastIndex < content.Count)
 			{
 				GUI.Box(_lastRect, "", _chooseStyle);
 				MessageListItem(_lastIndex, content[_lastIndex], _lastRect, false);
