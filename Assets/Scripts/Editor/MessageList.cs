@@ -36,7 +36,6 @@ public class MessageList
 	private static bool MessageListItem(int id, string message, Rect rect, bool overrideBackground = true)
 	{
 		int controlId = GUIUtility.GetControlID(FocusType.Passive, rect);
-		bool selected = false;
 		
 		switch(Event.current.GetTypeForControl(controlId))
 		{

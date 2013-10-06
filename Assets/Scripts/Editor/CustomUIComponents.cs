@@ -27,7 +27,6 @@ public class CustomUIComponents
 	private static bool SelectableListItem(int id, string label, Rect rect)
 	{
 		int controlId = GUIUtility.GetControlID(FocusType.Passive, rect);
-		bool selected = false;
 		
 		switch(Event.current.GetTypeForControl(controlId))
 		{

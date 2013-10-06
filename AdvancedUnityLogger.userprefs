@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Editor\CustomUIComponents.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Editor\AdvancedLogWindow.cs">
     <Files>
-      <File FileName="Assets\Scripts\Editor\AdvancedLogWindow.cs" Line="28" Column="113" />
-      <File FileName="Assets\Scripts\Editor\MessageList.cs" Line="92" Column="38" />
-      <File FileName="Assets\Scripts\Editor\CustomUIComponents.cs" Line="63" Column="113" />
+      <File FileName="Assets\Scripts\Editor\AdvancedLogWindow.cs" Line="33" Column="3" />
+      <File FileName="Assets\Scripts\Editor\MessageList.cs" Line="79" Column="1" />
+      <File FileName="Assets\gamegui.cs" Line="22" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
