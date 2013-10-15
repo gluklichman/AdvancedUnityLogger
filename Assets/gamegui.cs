@@ -19,14 +19,21 @@ public class gamegui : MonoBehaviour {
 	{
 		if (GUI.Button(new Rect(0,0, 100, 50), "push"))
 		{
-			Debug.Log("GUI!");
-			LogTestMessage();
+			AdvancedUnityLogger.Log("Hello!", "some class");
+		}
+		if (GUI.Button(new Rect(0,50, 100, 50), "push2"))
+		{
+			AdvancedUnityLogger.Log("Ololo!", this);
+		}
+		if (GUI.Button(new Rect(0,100, 100, 50), "push2"))
+		{
+			AdvancedUnityLogger.Log("123!", this);
 		}
 	}
 	
 	void LogTestMessage()
 	{
 		counter++;
-		Debug.Log("Counter: "+counter);
+		AdvancedUnityLogger.Log("Counter: "+counter, this);
 	}
 }
