@@ -12,7 +12,7 @@ public class CustomUIComponents
 	private static bool _buttonPressed = false;
 	private const int _listItemHeight = 15;
 	private static Rect _lastRect;
-	private static int _lastIndex = -1;
+	public static int _lastIndex = -1;
 	
 	private static Texture2D _highlightTexture;
 	private static GUIStyle _pressed;
@@ -27,7 +27,6 @@ public class CustomUIComponents
 	private static bool SelectableListItem(int id, string label, Rect rect)
 	{
 		int controlId = GUIUtility.GetControlID(FocusType.Passive, rect);
-		bool selected = false;
 		
 		switch(Event.current.GetTypeForControl(controlId))
 		{

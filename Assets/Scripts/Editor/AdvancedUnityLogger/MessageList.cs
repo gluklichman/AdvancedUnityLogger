@@ -15,7 +15,7 @@ public class MessageList
 	private static Vector2 _messageListScrollPosition;
 	
 	private static Rect _lastRect;
-	private static int _lastIndex;
+	public static int _lastIndex;
 	
 	private static Texture2D _secondMessageBack;
 	private static GUIStyle _secondMessageStyle;
@@ -36,7 +36,6 @@ public class MessageList
 	private static bool MessageListItem(int id, string message, Rect rect, bool overrideBackground = true)
 	{
 		int controlId = GUIUtility.GetControlID(FocusType.Passive, rect);
-		bool selected = false;
 		
 		switch(Event.current.GetTypeForControl(controlId))
 		{
@@ -89,7 +88,7 @@ public class MessageList
 		}
 		
 		int index = ArrayUtility.FindIndex(results, (res)=>res==true);
-		if (index >= 0)
+		if (index >= 0 && content.Count > 0)
 		{
 			GUI.Box(new Rect(rect.x, rect.y+index*_messageHeight, rect.width, _messageHeight), "", _chooseStyle);
 			MessageListItem(index, content[index], new Rect(rect.x, rect.y+index*_messageHeight, rect.width, _messageHeight));
@@ -98,7 +97,12 @@ public class MessageList
 		}
 		else 
 		{
-			if (_lastRect != null && _lastIndex != -1)
+			if (content.Count == 0)
+			{
+				GUI.EndScrollView();
+				return -1;
+			}
+			if (_lastRect != null && _lastIndex != -1 && _lastIndex < content.Count)
 			{
 				GUI.Box(_lastRect, "", _chooseStyle);
 				MessageListItem(_lastIndex, content[_lastIndex], _lastRect, false);
@@ -108,6 +112,11 @@ public class MessageList
 		GUI.EndScrollView();
 
 		return ArrayUtility.FindIndex(results, (res)=>res==true);
+	}
+	
+	public static void Destroy()
+	{
+		_lastIndex = -1;
 	}
 	
 	
