@@ -40,6 +40,11 @@ public class AdvancedLogWindow : EditorWindow {
 				GetCheckedMessage(messageId);
 			}
 		}
+		else
+		{
+			CustomUIComponents.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
+			position, "");
+		}
 		CreateButtons();
 		
 	}
@@ -75,9 +80,9 @@ public class AdvancedLogWindow : EditorWindow {
 	}
 	#endregion
 	
+	#region loggingFunctionality
 	private void LogCallback(string logText, string stackTrace, LogType type)
 	{
-		//prepare message
 		int fromIndex = logText.IndexOf("###");
 		int toIndex = logText.IndexOf("###", 1);
 		string senderString = logText.Substring(fromIndex, toIndex);
@@ -86,24 +91,23 @@ public class AdvancedLogWindow : EditorWindow {
 		
 		if (!_senders.Contains(senderString))
 			_senders.Add(senderString);
-		//_logMessages.Add(logText);
-		//_detailedDescriptions.Add(stackTrace);
-		
-		if (_categorizedMessages.ContainsKey(senderString))
-			_categorizedMessages[senderString].Add(logText);
-		else
+		AddMessageToDictionary(_categorizedMessages, logText, senderString);
+		AddMessageToDictionary(_categorizedDescriptions, stackTrace, senderString);
+	}
+	
+	private void AddMessageToDictionary(Dictionary<string, List<string>> dict, string message, string key)
+	{
+		if (dict.ContainsKey(key))
 		{
-			_categorizedMessages.Add(senderString, new List<string>());
-			_categorizedMessages[senderString].Add(logText);
+			dict[key].Add(message);
 		}
-		if (_categorizedDescriptions.ContainsKey(senderString))
-			_categorizedDescriptions[senderString].Add(stackTrace);
 		else
 		{
-			_categorizedDescriptions.Add(senderString, new List<string>());
-			_categorizedDescriptions[senderString].Add(stackTrace);
+			dict.Add(key, new List<string>());
+			dict[key].Add(message);
 		}
 	}
+	#endregion
 	
 	void OnDestroy()
 	{
@@ -125,8 +129,6 @@ public class AdvancedLogWindow : EditorWindow {
 	
 	void ClearLists()
 	{
-		//_logMessages.Clear();
-		//_detailedDescriptions.Clear();
 		_senders.Clear();
 		
 		_categorizedMessages.Clear();

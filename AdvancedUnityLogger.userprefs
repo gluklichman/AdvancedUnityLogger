@@ -1,18 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Editor\AdvancedLogWindow.cs">
-    <Files>
-      <File FileName="Assets\gamegui.cs" Line="26" Column="34" />
-      <File FileName="Assets\Scripts\AdvancedUnityLogger\AdvancedUnityLogger.cs" Line="36" Column="9" />
-      <File FileName="Assets\Scripts\Editor\AdvancedLogWindow.cs" Line="36" Column="4" />
-      <File FileName="Assets\Scripts\Editor\CustomUIComponents.cs" Line="72" Column="1" />
-      <File FileName="Assets\Scripts\Editor\MessageList.cs" Line="1" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="D:\work\unity3d\projects\myprojects\AdvancedUnityLogger\Assets\Scripts\Editor\CustomUIComponents.cs" line="59" />
-      <Breakpoint file="D:\work\unity3d\projects\myprojects\AdvancedUnityLogger\Assets\Scripts\Editor\AdvancedLogWindow.cs" line="75" />
+      <Breakpoint file="D:\work\unity3d\projects\myprojects\AdvancedUnityLogger\Assets\Scripts\Editor\AdvancedLogWindow.cs" line="36" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
