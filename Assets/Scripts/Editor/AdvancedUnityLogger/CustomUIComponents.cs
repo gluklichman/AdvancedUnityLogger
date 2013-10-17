@@ -19,7 +19,8 @@ public class CustomUIComponents
 	
 	static CustomUIComponents()
 	{
-		_highlightTexture = Resources.Load("highlight") as Texture2D;
+		//_highlightTexture = Resources.Load("highlight") as Texture2D;
+		_highlightTexture = TexturesGenerator.GenerateMonotonicTexture(Color.yellow);
 		_pressed = new GUIStyle(GUI.skin.box);
 		_pressed.normal.background = _highlightTexture;
 	}
@@ -71,6 +72,8 @@ public class CustomUIComponents
 		int index = ArrayUtility.FindIndex(results, (res)=>res==true);
 		if (index >= 0)
 		{
+			if (_pressed.normal.background == null)
+				_pressed.normal.background = TexturesGenerator.GenerateMonotonicTexture(Color.yellow);
 			GUI.Box(new Rect(rect.x, rect.y+index*_listItemHeight, rect.width, _listItemHeight), "", _pressed);
 			SelectableListItem(index, content[index], new Rect(rect.x, rect.y+index*_listItemHeight, rect.width, _listItemHeight));
 			_lastRect = new Rect(rect.x, rect.y+index*_listItemHeight, rect.width, _listItemHeight);
@@ -80,6 +83,8 @@ public class CustomUIComponents
 		{
 			if (_lastRect != null && _lastIndex != -1)
 			{
+				if (_pressed.normal.background == null)
+					_pressed.normal.background = TexturesGenerator.GenerateMonotonicTexture(Color.yellow);
 				GUI.Box(_lastRect, "", _pressed);
 				SelectableListItem(_lastIndex, content[_lastIndex], _lastRect);
 			}
@@ -96,6 +101,12 @@ public class CustomUIComponents
 			_detailedViewScrollPosition, rect);
 		GUI.TextArea(rect, description);
 		GUI.EndScrollView();
+	}
+	
+	public static void Destroy()
+	{
+		_lastIndex = -1;
+		//_generator = null;
 	}
 }
 

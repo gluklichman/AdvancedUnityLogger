@@ -113,6 +113,7 @@ public class AdvancedLogWindow : EditorWindow {
 	{
 		Application.RegisterLogCallback(null);
 		MessageList.Destroy();
+		CustomUIComponents.Destroy();
 	}
 	
 	void OnEnable()
