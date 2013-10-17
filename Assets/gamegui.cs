@@ -27,7 +27,9 @@ public class gamegui : MonoBehaviour {
 		}
 		if (GUI.Button(new Rect(0,100, 100, 50), "push2"))
 		{
-			AdvancedUnityLogger.Log("123!", this);
+			
+			//AdvancedUnityLogger.Log("123!", this);
+			Debug.Log("Test");
 		}
 	}
 	

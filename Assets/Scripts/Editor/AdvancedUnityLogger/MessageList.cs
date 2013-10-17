@@ -86,7 +86,7 @@ public class MessageList
 		_doubleClickIndexes = new int[content.Count];
 		float y = rect.y;
 		int id = -1;
-		_messageListScrollPosition = GUI.BeginScrollView(new Rect(rect.x, rect.y, rect.width+20, parent.height*0.6f-10)
+		_messageListScrollPosition = GUI.BeginScrollView(new Rect(rect.x, rect.y, rect.width, parent.height*0.6f-10)
 			, _messageListScrollPosition, rect);
 		
 		for (int i=0; i<content.Count; i++)
