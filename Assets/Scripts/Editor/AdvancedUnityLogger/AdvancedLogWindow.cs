@@ -59,6 +59,28 @@ public class AdvancedLogWindow : EditorWindow {
 			_categorizedDescriptions[key][_indexToShow] : "";
 		SendersFilter.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
 			position, detailed);
+		
+		if (MessageList._doubleClickIndex >=0 && MessageList._doubleClickIndex < _categorizedDescriptions[key].Count)
+		{
+			Debug.Log("Open editor");
+			OpenEditor(key);
+			MessageList._doubleClickIndex = -1;
+		}
+	}
+	
+	private void OpenEditor(string key)
+	{
+		string[] log = _categorizedDescriptions[key][_indexToShow].Split('\n');
+		string senderString = log[log.Length-2];
+		int atIndex = senderString.IndexOf("at");
+		senderString = senderString.Substring(atIndex+3);
+		senderString = senderString.Remove(senderString.Length-1);
+		string [] parts = senderString.Split(':');
+		string fileName = parts[0];
+		int lineNumber = int.Parse(parts[1]);
+		Object asset = AssetDatabase.LoadMainAssetAtPath(fileName);
+		AssetDatabase.OpenAsset(asset, lineNumber);
+		//Debug.Log(guid);
 	}
 	
 	private void GetCheckedCategory(int categoryId)

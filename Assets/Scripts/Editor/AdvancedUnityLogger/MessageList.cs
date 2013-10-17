@@ -20,6 +20,9 @@ public class MessageList
 	private static Texture2D _secondMessageBack;
 	private static GUIStyle _secondMessageStyle;
 	
+	private static int[] _doubleClickIndexes;
+	public static int _doubleClickIndex = -1;
+	
 	
 	static MessageList()
 	{
@@ -36,7 +39,8 @@ public class MessageList
 	private static bool MessageListItem(int id, string message, Rect rect, bool overrideBackground = true)
 	{
 		int controlId = GUIUtility.GetControlID(FocusType.Passive, rect);
-		
+		if (rect.Contains(Event.current.mousePosition))
+			_doubleClickIndexes[id] = Event.current.clickCount;
 		switch(Event.current.GetTypeForControl(controlId))
 		{
 		case EventType.MouseDown:
@@ -79,6 +83,7 @@ public class MessageList
 	public static int CreateMessageList(Rect rect, List<string> content, Rect parent)
 	{
 		bool [] results = new bool[content.Count];
+		_doubleClickIndexes = new int[content.Count];
 		float y = rect.y;
 		int id = -1;
 		_messageListScrollPosition = GUI.BeginScrollView(new Rect(rect.x, rect.y, rect.width+20, parent.height*0.6f-10)
@@ -115,6 +120,11 @@ public class MessageList
 		}
 			
 		GUI.EndScrollView();
+		for (int i=0; i<content.Count; i++)
+		{
+			if (_doubleClickIndexes[i] >= 2)
+				_doubleClickIndex = i;
+		}
 
 		return ArrayUtility.FindIndex(results, (res)=>res==true);
 	}
