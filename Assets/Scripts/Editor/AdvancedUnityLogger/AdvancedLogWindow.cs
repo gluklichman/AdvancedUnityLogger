@@ -29,7 +29,7 @@ public class AdvancedLogWindow : EditorWindow {
 	#region GUI	
 	void OnGUI()
 	{
-		int id = CustomUIComponents.CheckList(new Rect(0,0,100,_senders.Count*_listItemHeight), _senders, position);
+		int id = SendersFilter.CheckList(new Rect(0,0,100,_senders.Count*_listItemHeight), _senders, position);
 		GetCheckedCategory(id);
 		if (_categoryToShow >= 0 && _categoryToShow<_senders.Count)
 		{
@@ -42,7 +42,7 @@ public class AdvancedLogWindow : EditorWindow {
 		}
 		else
 		{
-			CustomUIComponents.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
+			SendersFilter.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
 			position, "");
 		}
 		CreateButtons();
@@ -57,7 +57,7 @@ public class AdvancedLogWindow : EditorWindow {
 		string detailed = (_indexToShow >= 0 && _indexToShow < _categorizedDescriptions[key].Count)?
 			//_detailedDescriptions[_indexToShow] : "";
 			_categorizedDescriptions[key][_indexToShow] : "";
-		CustomUIComponents.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
+		SendersFilter.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
 			position, detailed);
 	}
 	
@@ -73,7 +73,7 @@ public class AdvancedLogWindow : EditorWindow {
 		{
 			ClearLists();
 			MessageList._lastIndex = -1;
-			CustomUIComponents._lastIndex = -1;
+			SendersFilter._lastIndex = -1;
 		}
 		GUI.Box(new Rect(130, 0, position.width - 150, 20), "");
 		_collapse = GUI.Toggle(new Rect(130,0,100,20), _collapse, "Collapse");
@@ -113,7 +113,7 @@ public class AdvancedLogWindow : EditorWindow {
 	{
 		Application.RegisterLogCallback(null);
 		MessageList.Destroy();
-		CustomUIComponents.Destroy();
+		SendersFilter.Destroy();
 	}
 	
 	void OnEnable()

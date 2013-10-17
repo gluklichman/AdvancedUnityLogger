@@ -23,11 +23,11 @@ public class MessageList
 	
 	static MessageList()
 	{
-		_highlightTexture = Resources.Load("message_highlight") as Texture2D;
+		_highlightTexture = TexturesGenerator.GenerateMonotonicTexture(new Color(50/255.0f, 135/255.0f, 255/255.0f));
 		_chooseStyle = new GUIStyle(GUI.skin.box);
 		_chooseStyle.normal.background = _highlightTexture;
 		
-		_secondMessageBack = Resources.Load("message_back") as Texture2D;
+		_secondMessageBack = TexturesGenerator.GenerateMonotonicTexture(new Color(60/255.0f, 60/255.0f, 60/255.0f));
 		_secondMessageStyle = new GUIStyle(GUI.skin.label);
 		_secondMessageStyle.normal.background = _secondMessageBack;
 		_secondMessageStyle.alignment = TextAnchor.UpperLeft;
@@ -62,7 +62,10 @@ public class MessageList
 				if (id % 2 == 0)
 					GUI.Label(rect, message);
 				else
+				{
+					_secondMessageStyle.normal.background = TexturesGenerator.GenerateMonotonicTexture(new Color(60/255.0f, 60/255.0f, 60/255.0f));
 					GUI.Label(rect, message, _secondMessageStyle);
+				}
 			}
 			else
 			{
@@ -90,6 +93,7 @@ public class MessageList
 		int index = ArrayUtility.FindIndex(results, (res)=>res==true);
 		if (index >= 0 && content.Count > 0)
 		{
+			_chooseStyle.normal.background = TexturesGenerator.GenerateMonotonicTexture(new Color(50/255.0f, 135/255.0f, 255/255.0f));
 			GUI.Box(new Rect(rect.x, rect.y+index*_messageHeight, rect.width, _messageHeight), "", _chooseStyle);
 			MessageListItem(index, content[index], new Rect(rect.x, rect.y+index*_messageHeight, rect.width, _messageHeight));
 			_lastRect = new Rect(rect.x, rect.y+index*_messageHeight, rect.width, _messageHeight);
@@ -104,6 +108,7 @@ public class MessageList
 			}
 			if (_lastRect != null && _lastIndex != -1 && _lastIndex < content.Count)
 			{
+				_chooseStyle.normal.background = TexturesGenerator.GenerateMonotonicTexture(new Color(50/255.0f, 135/255.0f, 255/255.0f));
 				GUI.Box(_lastRect, "", _chooseStyle);
 				MessageListItem(_lastIndex, content[_lastIndex], _lastRect, false);
 			}

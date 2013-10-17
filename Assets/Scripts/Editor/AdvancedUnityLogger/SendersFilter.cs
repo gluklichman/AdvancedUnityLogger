@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 
-public class CustomUIComponents
+public class SendersFilter
 {
 	private static Vector2 _objectsListScrollPosition;
 	private static Vector2 _detailedViewScrollPosition;
@@ -17,7 +17,7 @@ public class CustomUIComponents
 	private static Texture2D _highlightTexture;
 	private static GUIStyle _pressed;
 	
-	static CustomUIComponents()
+	static SendersFilter()
 	{
 		//_highlightTexture = Resources.Load("highlight") as Texture2D;
 		_highlightTexture = TexturesGenerator.GenerateMonotonicTexture(Color.yellow);
