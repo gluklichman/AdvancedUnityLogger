@@ -31,55 +31,25 @@ public class AdvancedLogWindow : EditorWindow {
 	}
 	
 	#region GUI	
-	
-	private void MouseProcess()
-	{
-		switch (Event.current.type)
-		{
-		case EventType.MouseDown:
-			if (new Rect(_resizeWidth+20, 0 ,10, position.height*0.6f).Contains(Event.current.mousePosition))
-				_mouseDrag = true;
-			break;
-		case EventType.MouseUp:
-			_mouseDrag = false;
-			break;
-		case EventType.MouseDrag:
-			if (Event.current.mousePosition.x > position.width*0.3f)
-				return;
-			if (_mouseDrag)
-			{
-				_resizeWidth = (int)Event.current.mousePosition.x-20 ;
-				Repaint();
-			}
-			break;
-			
-		}
-	}
-	
 	void OnGUI()
 	{
-		MouseProcess();
-		GUI.Box(new Rect(0, 0, _resizeWidth+20, position.height*0.6f), "");
-		int id = SendersFilter.CheckList(new Rect(0,0,_resizeWidth,_senders.Count*_listItemHeight), _senders, position);
-		EditorGUIUtility.AddCursorRect(new Rect(_resizeWidth+20,0,10, position.height*0.6f), MouseCursor.ResizeHorizontal);
-		GetCheckedCategory(id);
+		CreateButtons();
 		if (_categoryToShow >= 0 && _categoryToShow<_senders.Count)
 		{
 			string key = _senders[_categoryToShow];
 			if (_categorizedMessages.ContainsKey(key))
 			{
 				int messageId = -1;
-				messageId = MessageList.CreateMessageList(new Rect(_resizeWidth+20, 20, position.width-_resizeWidth-20, 
+				messageId = MessageList.CreateMessageList(new Rect(0, 20, position.width, 
 					_categorizedMessages[key].Count*_messageHeight), _categorizedMessages[key], position);
 				GetCheckedMessage(messageId);
 			}
 		}
 		else
 		{
-			SendersFilter.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
+			CustomGUI.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
 			position, "");
 		}
-		CreateButtons();
 		
 	}
 	
@@ -89,17 +59,16 @@ public class AdvancedLogWindow : EditorWindow {
 			_indexToShow = messageId;
 		string key = _senders[_categoryToShow];
 		string detailed = (_indexToShow >= 0 && _indexToShow < _categorizedDescriptions[key].Count)?
-			//_detailedDescriptions[_indexToShow] : "";
 			_categorizedDescriptions[key][_indexToShow] : "";
-		SendersFilter.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
+		CustomGUI.DetailedDescriptionArea(new Rect(0, position.height*0.6f+10, position.width, 300),
 			position, detailed);
 		
-		/*if (MessageList._doubleClickIndex >=0 && MessageList._doubleClickIndex < _categorizedDescriptions[key].Count)
+		if (MessageList._doubleClickIndex >=0 && MessageList._doubleClickIndex < _categorizedDescriptions[key].Count)
 		{
 			Debug.Log("Open editor");
 			OpenEditor(key);
 			MessageList._doubleClickIndex = -1;
-		}*/
+		}
 	}
 	
 	private void OpenEditor(string key)
@@ -117,22 +86,17 @@ public class AdvancedLogWindow : EditorWindow {
 		//Debug.Log(guid);
 	}
 	
-	private void GetCheckedCategory(int categoryId)
-	{
-		if (categoryId != -1 && categoryId != _categoryToShow)
-			_categoryToShow = categoryId;
-	}
-	
 	private void CreateButtons()
 	{
-		if (GUI.Button(new Rect(_resizeWidth+150,0,80,17), "Clear"))
+		_categoryToShow = EditorGUI.Popup(new Rect(10,0, 150, 20), _categoryToShow,
+			_senders.ToArray());
+		if (GUI.Button(new Rect(170,0,80,17), "Clear"))
 		{
 			ClearLists();
 			MessageList._lastIndex = -1;
-			SendersFilter._lastIndex = -1;
 		}
-		GUI.Box(new Rect(_resizeWidth+20, 0, position.width - _resizeWidth, 20), "");
-		_collapse = GUI.Toggle(new Rect(_resizeWidth+40,0,100,20), _collapse, "Collapse");
+		GUI.Box(new Rect(0, 0, position.width, 20), "");
+		_collapse = GUI.Toggle(new Rect(270,0,100,20), _collapse, "Collapse");
 	}
 	#endregion
 	
@@ -171,7 +135,6 @@ public class AdvancedLogWindow : EditorWindow {
 	{
 		Application.RegisterLogCallback(null);
 		MessageList.Destroy();
-		SendersFilter.Destroy();
 	}
 	
 	void OnEnable()

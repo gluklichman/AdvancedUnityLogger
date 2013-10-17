@@ -4,20 +4,20 @@ using UnityEngine;
 using UnityEditor;
 
 
-public class SendersFilter
+public class CustomGUI
 {
-	private static Vector2 _objectsListScrollPosition;
+	//private static Vector2 _objectsListScrollPosition;
 	private static Vector2 _detailedViewScrollPosition;
 	
-	private static bool _buttonPressed = false;
-	private const int _listItemHeight = 15;
-	private static Rect _lastRect;
-	public static int _lastIndex = -1;
+	//private static bool _buttonPressed = false;
+	//private const int _listItemHeight = 15;
+	//private static Rect _lastRect;
+	//public static int _lastIndex = -1;
 	
-	private static Texture2D _highlightTexture;
-	private static GUIStyle _pressed;
+	//private static Texture2D _highlightTexture;
+	//private static GUIStyle _pressed;
 	
-	static SendersFilter()
+	/*static SendersFilter()
 	{
 		//_highlightTexture = Resources.Load("highlight") as Texture2D;
 		_highlightTexture = TexturesGenerator.GenerateMonotonicTexture(Color.yellow);
@@ -93,7 +93,7 @@ public class SendersFilter
 		GUI.EndScrollView();
 
 		return ArrayUtility.FindIndex(results, (res)=>res==true);
-	}
+	}*/
 	
 	public static void DetailedDescriptionArea(Rect rect, Rect parent, string description)
 	{
@@ -103,11 +103,11 @@ public class SendersFilter
 		GUI.EndScrollView();
 	}
 	
-	public static void Destroy()
-	{
-		_lastIndex = -1;
+	//public static void Destroy()
+	//{
+	//	_lastIndex = -1;
 		//_generator = null;
-	}
+	//}
 }
 
 

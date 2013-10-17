@@ -87,7 +87,8 @@ public class MessageList
 		float y = rect.y;
 		int id = -1;
 		_messageListScrollPosition = GUI.BeginScrollView(new Rect(rect.x, rect.y, rect.width, parent.height*0.6f-10)
-			, _messageListScrollPosition, rect);
+			, _messageListScrollPosition, 
+			new Rect(rect.x, rect.y, rect.width-20, rect.height));
 		
 		for (int i=0; i<content.Count; i++)
 		{
